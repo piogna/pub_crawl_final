@@ -1,3 +1,4 @@
+(Don't worry about 1 and 2.)
 1. gem install rails-api
 2. rails-api new pub_crawl_final -T -d postgresql
 
