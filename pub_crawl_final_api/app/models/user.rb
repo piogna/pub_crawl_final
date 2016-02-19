@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
     :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
   has_many :crawls
+  has_many :invitees
   has_many :invites, through: :invitees, source: :crawls
   has_many :reviews
 end
