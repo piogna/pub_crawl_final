@@ -5,3 +5,4 @@
 #What you have to do to get it working locally.
 1. Run bundle install
 2. createuser -P -s -e pub_crawl_final
+3. rake db:setup
