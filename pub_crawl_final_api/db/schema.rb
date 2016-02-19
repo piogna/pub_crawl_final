@@ -11,10 +11,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219141724) do
+ActiveRecord::Schema.define(version: 20160219183302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bars", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "province"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "crawls", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "crawls", ["user_id"], name: "index_crawls_on_user_id", using: :btree
+
+  create_table "hops", force: :cascade do |t|
+    t.integer  "bar_id"
+    t.integer  "crawl_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "hops", ["bar_id"], name: "index_hops_on_bar_id", using: :btree
+  add_index "hops", ["crawl_id"], name: "index_hops_on_crawl_id", using: :btree
+
+  create_table "invitees", force: :cascade do |t|
+    t.integer  "crawl_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "invitees", ["crawl_id"], name: "index_invitees_on_crawl_id", using: :btree
+  add_index "invitees", ["user_id"], name: "index_invitees_on_user_id", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "crawl_id"
+    t.integer  "user_id"
+    t.integer  "rating"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "reviews", ["crawl_id"], name: "index_reviews_on_crawl_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -45,4 +103,11 @@ ActiveRecord::Schema.define(version: 20160219141724) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
+  add_foreign_key "crawls", "users"
+  add_foreign_key "hops", "bars"
+  add_foreign_key "hops", "crawls"
+  add_foreign_key "invitees", "crawls"
+  add_foreign_key "invitees", "users"
+  add_foreign_key "reviews", "crawls"
+  add_foreign_key "reviews", "users"
 end
