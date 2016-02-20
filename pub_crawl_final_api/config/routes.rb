@@ -4,10 +4,9 @@ Rails.application.routes.draw do
     resources :crawls, only: [:index, :show, :create, :update, :destroy] do
       resources :reviews
     end
-
+    resources :users, only: [:show, :create, :edit, :update, :destroy]
+    resources :bars, only: [:index, :show, :create, :edit, :update]
   end
-
-
 
 
 
