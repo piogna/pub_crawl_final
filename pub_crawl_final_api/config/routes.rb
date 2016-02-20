@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :crawls, only: [:index, :show, :create, :update, :destroy] do
-      resources :reviews
+      resources :reviews, only: [:new, :create]
     end
     resources :users, only: [:show, :create, :edit, :update, :destroy]
     resources :bars, only: [:index, :show, :create, :edit, :update]

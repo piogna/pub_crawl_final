@@ -30,7 +30,7 @@ class Api::BarsController < ApplicationController
   def update
     @bar = Bar.find_by(id: params[:id])
 
-    @bar.update_attributes(user_params)
+    @bar.update_attributes(bar_params)
   end
 
   def destroy
