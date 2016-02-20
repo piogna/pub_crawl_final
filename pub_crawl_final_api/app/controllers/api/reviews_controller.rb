@@ -1,5 +1,14 @@
 class Api::ReviewsController < ApplicationController
 
+  # validates :rating,
+  #   presence: true,
+  #   numericality: { greater_than: 0, less_than: 6 }
+
+  # validates :comment,
+  #   length: { maximum: 200 }
+
+  # before_filter :load_movie, :restrict_access
+
   def new
     @review = @crawl.reviews.build
   end
@@ -17,8 +26,8 @@ class Api::ReviewsController < ApplicationController
 
   protected
 
-  def load_movie
-    @crawl = Crawl.find(params[:movie_id])
+  def load_crawl
+    @crawl = Crawl.find(params[:crawl_id])
   end
 
   def review_params

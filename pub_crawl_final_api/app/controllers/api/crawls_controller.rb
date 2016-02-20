@@ -1,5 +1,13 @@
 class Api::CrawlsController < ApplicationController
 
+  # validates :name,
+  #   presence: true,
+  #   uniqueness: true,
+  #   length: { in: 5..40 }
+
+  # validates :description,
+  #   length: { maximum: 150 }
+
   def index
     @crawls = Crawls.all
   end
